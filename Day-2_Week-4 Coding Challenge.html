@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spring Flowers School - Student Portal</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            padding-top: 56px;
+            font-family: Arial, sans-serif;
+        }
+        footer.footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #343a40;
+            padding: 10px 0;
+            text-align: center;
+            color: #fff;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+        }
+        form {
+            margin-top: 20px;
+        }
+        .monthly-activities {
+            margin-top: 20px;
+        }
+        .monthly-activity-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        .monthly-activity-list li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">Spring Flowers School</a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item" id="logoutBtn" style="display: none;">
+                        <button class="btn btn-danger" id="logout">Logout</button>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    
+    <main class="container">
+        <div id="loginPage">
+            <h1>Login</h1>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" class="form-control" id="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" class="form-control" id="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+            <p>Don't have an account? <a href="#" id="registerLink">Register here</a></p>
+        </div>
+        
+        <div id="registerPage" style="display: none;">
+            <h1>Register</h1>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="newUsername">Username:</label>
+                    <input type="text" class="form-control" id="newUsername" required>
+                </div>
+                <div class="form-group">
+                    <label for="newPassword">Password:</label>
+                    <input type="password" class="form-control" id="newPassword" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Register</button>
+            </form>
+            <p>Already have an account? <a href="#" id="loginLink">Login here</a></p>
+        </div>
+        
+        <div id="welcomePage" style="display: none;">
+            <h1>Welcome</h1>
+            <button id="monthlyChartBtn" class="btn btn-primary">Monthly Chart</button>
+        </div>
+        
+        <div id="monthlyActivityPage" class="monthly-activities" style="display: none;">
+            <h1>Monthly Activities</h1>
+            <div class="form-group">
+                <label for="subjectSelect">Select Subject:</label>
+                <select class="form-control" id="subjectSelect">
+                    <option value="Choose Subject">Choose Subject</option>
+                    <option value="Maths">Maths</option>
+                    <option value="Science">Science</option>
+                    <!-- Add more subjects as needed -->
+                </select>
+            </div>
+            <ul class="monthly-activity-list" id="monthlyActivityList">
+                <!-- Monthly activities will be dynamically populated here -->
+            </ul>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <div class="container">
+            <span>© 2024 Spring Flowers School</span>
+        </div>
+    </footer>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        // Array to store registered users
+        var registeredUsers = [
+            { username: "sai", password: "12345" },
+            { username: "user1", password: "password1" },
+            // Add more registered users as needed
+        ];
+
+        $(document).ready(function() {
+            // Switch to register page
+            $('#registerLink').click(function() {
+                $('#loginPage').hide();
+                $('#registerPage').show();
+                return false;
+            });
+            
+            // Switch to login page
+            $('#loginLink').click(function() {
+                $('#registerPage').hide();
+                $('#loginPage').show();
+                return false;
+            });
+
+            // Login form submission
+            $('#loginForm').submit(function(e) {
+                e.preventDefault();
+                var enteredUsername = $('#username').val();
+                var enteredPassword = $('#password').val();
+
+                // Check if entered username and password match with any registered user
+                var validUser = registeredUsers.some(function(user) {
+                    return user.username === enteredUsername && user.password === enteredPassword;
+                });
+
+                if (validUser) {
+                    // User is valid, switch to welcome page
+                    $('#loginPage').hide();
+                    $('#welcomePage').show();
+                    $('#logoutBtn').show();
+                } else {
+                    // Invalid credentials, display error message
+                    alert("Invalid username or password. Please try again.");
+                }
+            });
+
+            // Register form submission
+            $('#registerForm').submit(function(e) {
+                e.preventDefault();
+                // Perform registration logic here
+                // For demonstration purpose, simply switch to welcome page
+                $('#registerPage').hide();
+                $('#welcomePage').show();
+                $('#logoutBtn').show();
+            });
+
+            // Logout button click event
+            $('#logout').click(function() {
+                $('#username').val('');
+                $('#password').val('');
+                // Redirect to login page and hide logout button
+                $('#welcomePage').hide();
+                $('#monthlyActivityPage').hide();
+                $('#loginPage').show();
+                $('#logoutBtn').hide();
+            });
+
+            // Show monthly activity page on clicking Monthly Chart button
+            $('#monthlyChartBtn').click(function() {
+                $('#welcomePage').hide();
+                $('#monthlyActivityPage').show();
+                $('#logoutBtn').show();
+                return false;
+            });
+
+            // Populate monthly activities based on selected subject
+            $('#subjectSelect').change(function() {
+                var selectedSubject = $(this).val();
+                // For demonstration purpose, let's assume monthly activities are stored in an array
+                var monthlyActivities = [
+                    { id: 1, activity: "Activity 1", subject: "Maths" },
+                    { id: 2, activity: "Activity 2", subject: "Maths" },
+                    { id: 3, activity: "Activity 1", subject: "Science" },
+                    { id: 4, activity: "Activity 2", subject: "Science" }
+                    // Add more activities as needed
+                ];
+
+                // Filter activities based on selected subject
+                var filteredActivities = monthlyActivities.filter(function(activity) {
+                    return activity.subject === selectedSubject;
+                });
+
+                // Clear previous activities and populate new ones
+                $('#monthlyActivityList').empty();
+                filteredActivities.forEach(function(activity) {
+                    $('#monthlyActivityList').append('<li>' + activity.activity + '</li>');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
