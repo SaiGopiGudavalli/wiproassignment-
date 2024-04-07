@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spring Flowers School</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            padding-top: 56px;
+            font-family: Arial, sans-serif;
+            background-color: grey;
+        }
+        footer.footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: burlywood;
+            padding: 10px 0;
+            text-align: center;
+            color: blue;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            background-color: skyblue; 
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .timetable-container {
+            display: none;
+        }
+        .nav-link {
+            color: #007bff !important;
+        }
+        .nav-link:hover {
+            color: #0056b3 !important;
+        }
+        @media (max-width: 768px) {
+            body {
+                padding-top: 70px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">Spring Flowers School</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="homeBtn">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="timetableBtn">TimeTable</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">School Application</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    
+    <main class="container">
+        <h1 style="color: #007bff;">Welcome to Spring Flowers School</h1> 
+        <div id="timetableContainer" class="timetable-container">
+            <h2>TimeTable</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Day</th>
+                        <th>Time</th>
+                        <th>Subject</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Monday</td>
+                        <td>09:00 AM - 03:00 PM</td>
+                        <td>Practicals</td>
+                        <td>03:00 PM - 05:00 PM</td>
+                        <td>Games</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <div class="container">
+            <span>© 2020 Spring Flowers School</span>
+        </div>
+    </footer>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // JavaScript to toggle display of timetable section
+        document.getElementById("timetableBtn").addEventListener("click", function() {
+            var timetableContainer = document.getElementById("timetableContainer");
+            if (timetableContainer.style.display === "none") {
+                timetableContainer.style.display = "block";
+            } else {
+                timetableContainer.style.display = "block";
+            }
+        });
+        document.getElementById("homeBtn").addEventListener("click", function() {
+            document.getElementById("timetableContainer").style.display = "none";
+        });
+    </script>
+</body>
+</html>
